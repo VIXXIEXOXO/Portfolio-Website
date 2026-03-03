@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commissions</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background: #222;
+            color: #fff;
+            padding: 2vw 0;
+            text-align: center;
+            font-size: 6vw;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 5vw;
+            background: #f5f5f5;
+            padding: 2vw 0;
+            flex-wrap: wrap;
+        }
+
+        nav button {
+            padding: 1vw 4vw;
+            font-size: 3vw;
+            border: none;
+            background: #e0e0e0;
+            cursor: pointer;
+            border-radius: 1vw;
+            transition: background 0.2s;
+        }
+
+        nav button:hover {
+            background: #d0d0d0;
+        }
+
+        nav button.active {
+            background: #222;
+            color: #fff;
+        }
+
+        @media (min-width: 600px) {
+            header {
+                font-size: 2em;
+                padding: 20px 0;
+            }
+
+            nav {
+                gap: 30px;
+                padding: 15px 0;
+            }
+
+            nav button {
+                font-size: 1em;
+                padding: 10px 25px;
+                border-radius: 5px;
+            }
+        }
+
+        section {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #fafafa;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        My Portfolio
+    </header>
+    <nav>
+        <button id="btn-about" onclick="showSection('about')">About</button>
+        <button id="btn-projects" onclick="showSection('projects')">Projects</button>
+        <button id="btn-commissions" onclick="showSection('commissions')">Commissions</button>
+        <button id="btn-fanart" onclick="showSection('fanart')">Fanart</button>
+        <button id="btn-links" onclick="showSection('links')">Links</button>
+    </nav>
+    <section id="about-section">
+        <h2>About Me</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua. Ut enim ad minim veniam.</p>
+    </section>
+    <section id="projects-section" style="display:none">
+        <h2>Projects</h2>
+        <p>Project details will go here.</p>
+    </section>
+    <section id="commissions-section" style="display:none">
+        <h2>Commission Information</h2>
+        <p>This is a placeholder page for commission details. Add your commission info here.</p>
+        <div style="margin-top:30px">
+            <label for="commission-images" style="font-weight:bold;display:block;margin-bottom:10px;">Add
+                Pictures:</label>
+            <input type="file" id="commission-images" accept="image/*" multiple style="margin-bottom:15px;">
+            <div id="commission-image-preview" style="display:flex;flex-wrap:wrap;gap:15px;"></div>
+        </div>
+    </section>
+    <section id="fanart-section" style="display:none">
+        <h2>Fanart</h2>
+        <p>Fanart gallery will go here.</p>
+    </section>
+    <section id="links-section" style="display:none">
+        <h2>Links</h2>
+        <p>Useful links will go here.</p>
+    </section>
+    <script>
+        function showSection(section) {
+            const sections = ['about', 'projects', 'commissions', 'fanart', 'links'];
+            sections.forEach(s => {
+                document.getElementById(s + '-section').style.display = (s === section) ? '' : 'none';
+                document.getElementById('btn-' + s).classList.toggle('active', s === section);
+            });
+        }
+        // Set initial active button
+        showSection('about');
+
+        // Image upload and preview for commissions
+        document.getElementById('commission-images').addEventListener('change', function (event) {
+            const preview = document.getElementById('commission-image-preview');
+            preview.innerHTML = '';
+            Array.from(event.target.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.maxWidth = '150px';
+                    img.style.maxHeight = '150px';
+                    img.style.borderRadius = '8px';
+                    img.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+                    preview.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+    </script>
+</body>
+
+</html>
