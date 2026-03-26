@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commissions</title>
+    <title>Portfolio</title>
+    <link rel="icon" type="image/png" href="assets/icon.png">
     <style>
         body {
             margin: 0;
@@ -14,9 +15,11 @@
         header {
             background: #222;
             color: #fff;
-            padding: 2vw 0;
+            padding: 10vw 0 12vw 0;
             text-align: center;
-            font-size: 6vw;
+            font-size: 14vw;
+            letter-spacing: 0.12em;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.16);
         }
 
         nav {
@@ -49,8 +52,8 @@
 
         @media (min-width: 600px) {
             header {
-                font-size: 2em;
-                padding: 20px 0;
+                font-size: 6em;
+                padding: 80px 0 90px 0;
             }
 
             nav {
@@ -69,7 +72,7 @@
             max-width: 700px;
             margin: 40px auto;
             padding: 20px;
-            background: #fafafa;
+            background: #f0f0f0;
             border-radius: 10px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
@@ -77,12 +80,29 @@
         h2 {
             margin-top: 0;
         }
+
+        .project-rectangle {
+            border-radius: 16px;
+            background: #fff;
+            padding: 24px 20px;
+            margin-bottom: 32px;
+            /* No border or box-shadow */
+            transition: box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            min-height: 180px;
+            /* Adjust min-height as needed for your design */
+        }
+
+
     </style>
 </head>
 
 <body>
     <header>
-        My Portfolio
+        <span style="font-size:1.2em;font-weight:bold;">My Portfolio</span>
     </header>
     <nav>
         <button id="btn-about" onclick="showSection('about')">About</button>
@@ -91,48 +111,122 @@
         <button id="btn-fanart" onclick="showSection('fanart')">Fanart</button>
         <button id="btn-links" onclick="showSection('links')">Links</button>
     </nav>
-    <section id="about-section">
-        <h2>About Me</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
-            magna aliqua. Ut enim ad minim veniam.</p>
-    </section>
-    <section id="projects-section" style="display:none">
-        <h2>Projects</h2>
-        <p>Project details will go here.</p>
-    </section>
-    <section id="commissions-section" style="display:none">
-        <h2>Commission Information</h2>
-        <p>This is a placeholder page for commission details. Add your commission info here.</p>
-        <div style="margin-top:30px">
-            <label for="commission-images" style="font-weight:bold;display:block;margin-bottom:10px;">Add
-                Pictures:</label>
-            <input type="file" id="commission-images" accept="image/*" multiple style="margin-bottom:15px;">
-            <div id="commission-image-preview" style="display:flex;flex-wrap:wrap;gap:15px;"></div>
-        </div>
-    </section>
-    <section id="fanart-section" style="display:none">
-        <h2>Fanart</h2>
-        <p>Fanart gallery will go here.</p>
-    </section>
-    <section id="links-section" style="display:none">
-        <h2>Links</h2>
-        <p>Useful links will go here.</p>
-    </section>
+        <!-- Modular sections loaded from /sections folder for maintainability -->
+        <section id="about-section"></section>
+        <section id="projects-section" style="display:none"></section>
+        <section id="commissions-section" style="display:none"></section>
+        <section id="fanart-section" style="display:none"></section>
+        <section id="links-section" style="display:none"></section>
+        <script>
+            // Dynamically load section content from /sections/*.html
+            const sectionFiles = {
+                'about': 'sections/about.html',
+                'projects': 'sections/projects.html',
+                'commissions': 'sections/commissions.html',
+                'fanart': 'sections/fanart.html',
+                'links': 'sections/links.html'
+            };
+            function loadSectionContent(section) {
+                fetch(sectionFiles[section])
+                    .then(res => res.text())
+                    .then(html => {
+                        document.getElementById(section + '-section').innerHTML = html;
+                        if(section === 'commissions') setupCommissionImageUpload();
+                    });
+            }
+            function showSection(section) {
+                const sections = Object.keys(sectionFiles);
+                sections.forEach(s => {
+                    document.getElementById(s + '-section').style.display = (s === section) ? '' : 'none';
+                    document.getElementById('btn-' + s).classList.toggle('active', s === section);
+                });
+                localStorage.setItem('selectedSection', section);
+                loadSectionContent(section);
+            }
+            // Restore last selected section on page load
+            let lastSection = localStorage.getItem('selectedSection') || 'about';
+            showSection(lastSection);
+            // Commission image upload logic
+            function setupCommissionImageUpload() {
+                const commissionImagesInput = document.getElementById('commission-images');
+                const preview = document.getElementById('commission-image-preview');
+                if(!commissionImagesInput || !preview) return;
+                function saveCommissionImagesToStorage(images) {
+                    localStorage.setItem('commissionImages', JSON.stringify(images));
+                }
+                function loadCommissionImagesFromStorage() {
+                    const images = JSON.parse(localStorage.getItem('commissionImages') || '[]');
+                    preview.innerHTML = '';
+                    images.forEach(src => {
+                        const img = document.createElement('img');
+                        img.src = src;
+                        img.style.maxWidth = '150px';
+                        img.style.maxHeight = '150px';
+                        img.style.borderRadius = '8px';
+                        img.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+                        preview.appendChild(img);
+                    });
+                }
+                commissionImagesInput.addEventListener('change', function (event) {
+                    preview.innerHTML = '';
+                    const imageSrcs = [];
+                    Array.from(event.target.files).forEach(file => {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.style.maxWidth = '150px';
+                            img.style.maxHeight = '150px';
+                            img.style.borderRadius = '8px';
+                            img.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+                            preview.appendChild(img);
+                            imageSrcs.push(e.target.result);
+                            saveCommissionImagesToStorage(imageSrcs);
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                });
+                loadCommissionImagesFromStorage();
+            }
+        </script>
     <script>
+        // Save and restore last selected section using localStorage
         function showSection(section) {
             const sections = ['about', 'projects', 'commissions', 'fanart', 'links'];
             sections.forEach(s => {
                 document.getElementById(s + '-section').style.display = (s === section) ? '' : 'none';
                 document.getElementById('btn-' + s).classList.toggle('active', s === section);
             });
+            localStorage.setItem('selectedSection', section);
         }
-        // Set initial active button
-        showSection('about');
 
-        // Image upload and preview for commissions
-        document.getElementById('commission-images').addEventListener('change', function (event) {
-            const preview = document.getElementById('commission-image-preview');
+        // Already declared above, do not redeclare
+
+        // Image upload and preview for commissions, with localStorage
+        const commissionImagesInput = document.getElementById('commission-images');
+        const preview = document.getElementById('commission-image-preview');
+
+        function saveCommissionImagesToStorage(images) {
+            localStorage.setItem('commissionImages', JSON.stringify(images));
+        }
+
+        function loadCommissionImagesFromStorage() {
+            const images = JSON.parse(localStorage.getItem('commissionImages') || '[]');
             preview.innerHTML = '';
+            images.forEach(src => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.style.maxWidth = '150px';
+                img.style.maxHeight = '150px';
+                img.style.borderRadius = '8px';
+                img.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+                preview.appendChild(img);
+            });
+        }
+
+        commissionImagesInput.addEventListener('change', function (event) {
+            preview.innerHTML = '';
+            const imageSrcs = [];
             Array.from(event.target.files).forEach(file => {
                 const reader = new FileReader();
                 reader.onload = function (e) {
@@ -143,10 +237,15 @@
                     img.style.borderRadius = '8px';
                     img.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
                     preview.appendChild(img);
+                    imageSrcs.push(e.target.result);
+                    saveCommissionImagesToStorage(imageSrcs);
                 };
                 reader.readAsDataURL(file);
             });
         });
+
+        // Load commission images from localStorage on page load
+        loadCommissionImagesFromStorage();
     </script>
 </body>
 
