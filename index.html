@@ -1,3 +1,49 @@
+</style>
+<style>
+    /* Responsive styles */
+    @media (max-width: 700px) {
+        .header-bar {
+            padding: 2rem 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .project-card {
+            width: 95vw;
+            min-width: 0;
+            padding: 1rem;
+        }
+
+        .dropdown-row {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .photo-placeholder {
+            margin-bottom: 0.5rem;
+            margin-right: 0;
+        }
+
+        .projects-section {
+            margin-top: 1.5rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .header-bar {
+            font-size: 1rem;
+            padding: 1rem 0.2rem;
+        }
+
+        .project-card {
+            width: 100vw;
+            padding: 0.5rem;
+        }
+
+        .dropdown-text {
+            font-size: 0.95rem;
+        }
+    }
+</style>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,248 +51,215 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
-    <link rel="icon" type="image/png" href="assets/icon.png">
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        header {
-            background: #222;
-            color: #fff;
-            padding: 10vw 0 12vw 0;
-            text-align: center;
-            font-size: 14vw;
-            letter-spacing: 0.12em;
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.16);
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 5vw;
-            background: #f5f5f5;
-            padding: 2vw 0;
-            flex-wrap: wrap;
-        }
-
-        nav button {
-            padding: 1vw 4vw;
-            font-size: 3vw;
-            border: none;
-            background: #e0e0e0;
-            cursor: pointer;
-            border-radius: 1vw;
-            transition: background 0.2s;
-        }
-
-        nav button:hover {
-            background: #d0d0d0;
-        }
-
-        nav button.active {
-            background: #222;
-            color: #fff;
-        }
-
-        @media (min-width: 600px) {
-            header {
-                font-size: 6em;
-                padding: 80px 0 90px 0;
-            }
-
-            nav {
-                gap: 30px;
-                padding: 15px 0;
-            }
-
-            nav button {
-                font-size: 1em;
-                padding: 10px 25px;
-                border-radius: 5px;
-            }
-        }
-
-        section {
-            max-width: 700px;
-            margin: 40px auto;
-            padding: 20px;
-            background: #f0f0f0;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        h2 {
-            margin-top: 0;
-        }
-
-        .project-rectangle {
-            border-radius: 16px;
-            background: #fff;
-            padding: 24px 20px;
-            margin-bottom: 32px;
-            /* No border or box-shadow */
-            transition: box-shadow 0.2s;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
-            min-height: 180px;
-            /* Adjust min-height as needed for your design */
-        }
-
-
-    </style>
+    <link rel="icon" type="image/png" href="icon.png">
 </head>
 
 <body>
-    <header>
-        <span style="font-size:1.2em;font-weight:bold;">My Portfolio</span>
+
+    <header class="header-bar">
+        <nav>
+            <button class="nav-btn">About</button>
+            <button class="nav-btn">Projects</button>
+            <button class="nav-btn">Links</button>
+        </nav>
+
     </header>
-    <nav>
-        <button id="btn-about" onclick="showSection('about')">About</button>
-        <button id="btn-projects" onclick="showSection('projects')">Projects</button>
-        <button id="btn-commissions" onclick="showSection('commissions')">Commissions</button>
-        <button id="btn-fanart" onclick="showSection('fanart')">Fanart</button>
-        <button id="btn-links" onclick="showSection('links')">Links</button>
-    </nav>
-        <!-- Modular sections loaded from /sections folder for maintainability -->
-        <section id="about-section"></section>
-        <section id="projects-section" style="display:none"></section>
-        <section id="commissions-section" style="display:none"></section>
-        <section id="fanart-section" style="display:none"></section>
-        <section id="links-section" style="display:none"></section>
-        <script>
-            // Dynamically load section content from /sections/*.html
-            const sectionFiles = {
-                'about': 'sections/about.html',
-                'projects': 'sections/projects.html',
-                'commissions': 'sections/commissions.html',
-                'fanart': 'sections/fanart.html',
-                'links': 'sections/links.html'
-            };
-            function loadSectionContent(section) {
-                fetch(sectionFiles[section])
-                    .then(res => res.text())
-                    .then(html => {
-                        document.getElementById(section + '-section').innerHTML = html;
-                        if(section === 'commissions') setupCommissionImageUpload();
-                    });
-            }
-            function showSection(section) {
-                const sections = Object.keys(sectionFiles);
-                sections.forEach(s => {
-                    document.getElementById(s + '-section').style.display = (s === section) ? '' : 'none';
-                    document.getElementById('btn-' + s).classList.toggle('active', s === section);
-                });
-                localStorage.setItem('selectedSection', section);
-                loadSectionContent(section);
-            }
-            // Restore last selected section on page load
-            let lastSection = localStorage.getItem('selectedSection') || 'about';
-            showSection(lastSection);
-            // Commission image upload logic
-            function setupCommissionImageUpload() {
-                const commissionImagesInput = document.getElementById('commission-images');
-                const preview = document.getElementById('commission-image-preview');
-                if(!commissionImagesInput || !preview) return;
-                function saveCommissionImagesToStorage(images) {
-                    localStorage.setItem('commissionImages', JSON.stringify(images));
-                }
-                function loadCommissionImagesFromStorage() {
-                    const images = JSON.parse(localStorage.getItem('commissionImages') || '[]');
-                    preview.innerHTML = '';
-                    images.forEach(src => {
-                        const img = document.createElement('img');
-                        img.src = src;
-                        img.style.maxWidth = '150px';
-                        img.style.maxHeight = '150px';
-                        img.style.borderRadius = '8px';
-                        img.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
-                        preview.appendChild(img);
-                    });
-                }
-                commissionImagesInput.addEventListener('change', function (event) {
-                    preview.innerHTML = '';
-                    const imageSrcs = [];
-                    Array.from(event.target.files).forEach(file => {
-                        const reader = new FileReader();
-                        reader.onload = function (e) {
-                            const img = document.createElement('img');
-                            img.src = e.target.result;
-                            img.style.maxWidth = '150px';
-                            img.style.maxHeight = '150px';
-                            img.style.borderRadius = '8px';
-                            img.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
-                            preview.appendChild(img);
-                            imageSrcs.push(e.target.result);
-                            saveCommissionImagesToStorage(imageSrcs);
-                        };
-                        reader.readAsDataURL(file);
-                    });
-                });
-                loadCommissionImagesFromStorage();
-            }
-        </script>
+
+    <main>
+        <section id="projects" class="projects-section">
+            <div class="project-card">
+                <div class="project-header">
+                    <button class="dropdown-btn" aria-expanded="false"><span class="arrow">&#9654;</span></button>
+                    <span class="project-title">Project Title</span>
+                </div>
+                <div class="project-dropdown-content" style="display: none;">
+                    <div class="dropdown-row">
+                        <div class="photo-placeholder"></div>
+                        <div class="dropdown-text">Placeholder text 1</div>
+                    </div>
+                    <div class="dropdown-row">
+                        <div class="photo-placeholder"></div>
+                        <div class="dropdown-text">Placeholder text 2</div>
+                    </div>
+                    <div class="dropdown-row">
+                        <div class="photo-placeholder"></div>
+                        <div class="dropdown-text">Placeholder text 3</div>
+                    </div>
+                </div>
+                </style>
+                <style>
+                    .dropdown-row {
+                        display: flex;
+                        align-items: center;
+                        margin-bottom: 1rem;
+                    }
+
+                    .photo-placeholder {
+                        width: 60px;
+                        height: 60px;
+                        background: #555;
+                        border-radius: 8px;
+                        margin-right: 1.2rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: #aaa;
+                        font-size: 2rem;
+                    }
+
+                    .dropdown-row:first-child .photo-placeholder {
+                        margin-top: 1rem;
+                    }
+
+                    .dropdown-text {
+                        color: #eee;
+                        font-family: sans-serif;
+                        font-size: 1rem;
+                    }
+                </style>
+            </div>
+        </section>
+    </main>
+    </style>
     <script>
-        // Save and restore last selected section using localStorage
-        function showSection(section) {
-            const sections = ['about', 'projects', 'commissions', 'fanart', 'links'];
-            sections.forEach(s => {
-                document.getElementById(s + '-section').style.display = (s === section) ? '' : 'none';
-                document.getElementById('btn-' + s).classList.toggle('active', s === section);
-            });
-            localStorage.setItem('selectedSection', section);
-        }
-
-        // Already declared above, do not redeclare
-
-        // Image upload and preview for commissions, with localStorage
-        const commissionImagesInput = document.getElementById('commission-images');
-        const preview = document.getElementById('commission-image-preview');
-
-        function saveCommissionImagesToStorage(images) {
-            localStorage.setItem('commissionImages', JSON.stringify(images));
-        }
-
-        function loadCommissionImagesFromStorage() {
-            const images = JSON.parse(localStorage.getItem('commissionImages') || '[]');
-            preview.innerHTML = '';
-            images.forEach(src => {
-                const img = document.createElement('img');
-                img.src = src;
-                img.style.maxWidth = '150px';
-                img.style.maxHeight = '150px';
-                img.style.borderRadius = '8px';
-                img.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
-                preview.appendChild(img);
-            });
-        }
-
-        commissionImagesInput.addEventListener('change', function (event) {
-            preview.innerHTML = '';
-            const imageSrcs = [];
-            Array.from(event.target.files).forEach(file => {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.style.maxWidth = '150px';
-                    img.style.maxHeight = '150px';
-                    img.style.borderRadius = '8px';
-                    img.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
-                    preview.appendChild(img);
-                    imageSrcs.push(e.target.result);
-                    saveCommissionImagesToStorage(imageSrcs);
-                };
-                reader.readAsDataURL(file);
-            });
+        // Dropdown toggle functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+            const dropdownContent = document.querySelector('.project-dropdown-content');
+            const arrow = document.querySelector('.dropdown-btn .arrow');
+            if (dropdownBtn && dropdownContent && arrow) {
+                dropdownBtn.addEventListener('click', function () {
+                    const isOpen = dropdownContent.style.display === 'block';
+                    if (!isOpen) {
+                        dropdownContent.style.display = 'block';
+                        arrow.style.transform = 'rotate(90deg)';
+                        dropdownBtn.setAttribute('aria-expanded', 'true');
+                    } else {
+                        dropdownContent.style.display = 'none';
+                        arrow.style.transform = 'rotate(0deg)';
+                        dropdownBtn.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
         });
-
-        // Load commission images from localStorage on page load
-        loadCommissionImagesFromStorage();
     </script>
+    </style>
+    <style>
+        .projects-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: #222;
+            color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            width: 500px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .dropdown-btn {
+            display: flex;
+            align-items: center;
+            height: 1.2em;
+        }
+
+        .arrow {
+            line-height: 1;
+            vertical-align: middle;
+        }
+
+        .project-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            font-family: sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .dropdown-btn {
+            background: none;
+            border: none;
+            padding: 0;
+            margin-left: 0.5rem;
+            cursor: pointer;
+            outline: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown-btn .arrow {
+            display: inline-block;
+            font-size: 1.5rem;
+            color: #fff;
+            transition: transform 0.2s;
+        }
+
+        /* Remove hover and click color for dropdown arrow */
+        .dropdown-btn:focus .arrow,
+        .dropdown-btn:hover .arrow {
+            color: #fff;
+        }
+
+        .project-dropdown-content {
+            margin-top: 1rem;
+            background: #333;
+            border-radius: 6px;
+            padding: 1rem;
+            color: #eee;
+        }
+    </style>
+
 </body>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .header-bar {
+        background: #111;
+        padding: 3rem 0;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    .header-bar nav {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+    }
+
+    .nav-btn {
+        background: #222;
+        color: #fff;
+        border: none;
+        padding: 0.75rem 2rem;
+        font-size: 1.1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .nav-btn:hover {
+        background: #444;
+    }
+</style>
 
 </html>
