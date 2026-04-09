@@ -31,8 +31,8 @@
         }
 
         .header-bar {
-            background: #222;
-            padding: 3rem 0;
+            background: #2c68c4;
+            padding: 4rem 0;
             width: 100vw;
             position: relative;
             left: 50%;
@@ -49,8 +49,30 @@
             gap: 2rem;
         }
 
+        .github-link {
+            position: absolute;
+            top: 50%;
+            left: 2.7rem;
+            transform: translateY(-50%);
+            color: #fff;
+            opacity: 0.85;
+            transition: opacity 0.2s, transform 0.2s;
+            line-height: 0;
+        }
+
+        .github-link:hover {
+            opacity: 1;
+            transform: translateY(-50%) scale(1.15);
+        }
+
+        .github-link svg {
+            width: 56px;
+            height: 56px;
+            fill: currentColor;
+        }
+
         .nav-btn {
-            background: #0c0c0c;
+            background: #111111;
             color: #ffffff;
             border: none;
             padding: 0.75rem 2rem;
@@ -62,11 +84,10 @@
         }
 
         .nav-btn.active {
-            background: rgb(57, 105, 225);
-            color: #ffffff;
+            background: rgb(255, 255, 255);
+            color: #111111;
         }
 
-        .about-section,
         .projects-section,
         .links-section {
             display: flex;
@@ -75,67 +96,7 @@
             margin-top: 3rem;
         }
 
-        .about-card {
-            background: #ffffff;
-            color: #222;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-            border: 25px solid #222;
-            width: 440px;
-            padding: 3rem;
-            margin: 2rem auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .about-header.square-layout {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-
-        .about-photo.square-photo {
-            width: 110px;
-            height: 110px;
-            background: #555;
-            border: 3px solid #333;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            margin-bottom: 0;
-            margin-right: 2rem;
-        }
-
-        .profile-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .about-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .about-name,
-        .about-age,
-        .about-contact {
-            font-size: 1.2rem;
-            font-family: sans-serif;
-        }
-
-        .about-email {
-            color: #4af;
-            text-decoration: underline;
-        }
-
-        .about-dropdowns {
+        .content-stack {
             margin-top: 1rem;
             width: 100%;
             display: flex;
@@ -147,7 +108,6 @@
             margin-bottom: 1rem;
         }
 
-        .about-dropdown-card,
         .project-card,
         .links-card {
             background: #222;
@@ -261,11 +221,6 @@
             color: #4af;
         }
 
-        .about-card {
-            width: min(100%, 540px);
-            padding: clamp(1rem, 4vw, 3rem);
-        }
-
         @media (max-width: 900px) {
             .header-bar {
                 padding: 1.5rem 1rem;
@@ -279,16 +234,6 @@
             .nav-btn {
                 padding: 0.65rem 1.1rem;
                 font-size: 1rem;
-            }
-
-            .about-header.square-layout {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-
-            .about-photo.square-photo {
-                margin-right: 0;
             }
 
             .dropdown-row {
@@ -311,17 +256,12 @@
                 margin-top: 1.25rem;
             }
 
-            .about-card,
             .project-card,
-            .about-dropdown-card,
             .links-card {
                 width: 100%;
                 padding: 1rem;
             }
 
-            .about-name,
-            .about-age,
-            .about-contact,
             .project-title,
             .dropdown-group .dropdown-btn,
             .dropdown-text {
@@ -344,6 +284,11 @@
 
 <body>
     <header class="header-bar">
+        <a class="github-link" href="https://github.com/VIXXIEXOXO" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+            </svg>
+        </a>
         <nav>
             <button class="nav-btn" id="about-tab">About</button>
             <button class="nav-btn" id="projects-tab">Projects</button>
@@ -352,95 +297,11 @@
     </header>
 
     <main>
-        <section id="about" class="about-section" style="display: block;">
-            <div class="about-card">
-                <div class="about-header square-layout">
-                    <div class="about-photo square-photo">
-                        <img src="profile.jpg" alt="Profile Photo" class="profile-img">
-                    </div>
-                    <div class="about-info">
-                        <div class="about-name"> <span id="about-name">Nana Autio</span></div>
-                        <div class="about-age"> <span id="about-age">001101010011</span></div>
-                        <div class="about-contact">Email: <a href="mailto:your@email.com"
-                                class="about-email">nana.autio@gmail.com</a></div>
-                    </div>
-                </div>
-            </div>
+        <section id="about" class="about-section" style="display: flex;"></section>
 
-            <div class="about-dropdowns">
-                <div class="dropdown-group about-dropdown-card">
-                    <button class="dropdown-btn" aria-expanded="false"><span class="arrow">&#9654;</span>Degree</button>
-                    <div class="dropdown-content">
-                        <div class="dropdown-row">
-                            <div class="photo-placeholder"></div>
-                            <div class="dropdown-text">
-                                <strong>Bachelors Degree in Media and Arts</strong><br>
-                                Tampere University of Applied Sciences (TAMK)<br>
-                                2025 - 2029
-                            </div>
-                        </div>
-                        <div class="dropdown-row">
-                            <div class="photo-placeholder"></div>
-                            <div class="dropdown-text">
-                                <strong>High School Diploma</strong><br>
-                                Lake Washington High School (LWHS)<br>
-                                2021 - 2025
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <section id="projects" class="projects-section" style="display: none;"></section>
 
-            <div class="about-dropdowns">
-                <div class="dropdown-group about-dropdown-card">
-                    <button class="dropdown-btn" aria-expanded="false"><span
-                            class="arrow">&#9654;</span>Experience</button>
-                    <div class="dropdown-content">
-                        <div class="dropdown-row">
-                            <div class="photo-placeholder"></div>
-                            <div class="dropdown-text">Internship at Verus Nordica</div>
-                        </div>
-                        <div class="dropdown-row">
-                            <div class="photo-placeholder"></div>
-                            <div class="dropdown-text">Client Project at TAMK</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects" class="projects-section" style="display: none;">
-            <div class="about-dropdowns">
-                <div class="dropdown-group about-dropdown-card project-card">
-                    <button class="dropdown-btn" aria-expanded="false"><span class="arrow">&#9654;</span>Project
-                        1</button>
-                    <div class="dropdown-content">
-                        <div class="dropdown-row">
-                            <div class="photo-placeholder"></div>
-                            <div class="dropdown-text">Placeholder text 1</div>
-                        </div>
-                        <div class="dropdown-row">
-                            <div class="photo-placeholder"></div>
-                            <div class="dropdown-text">Placeholder text 2</div>
-                        </div>
-                        <div class="dropdown-row">
-                            <div class="photo-placeholder"></div>
-                            <div class="dropdown-text">Placeholder text 3</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="links" class="links-section" style="display: none;">
-            <div class="links-card">
-                <h2>Links</h2>
-                <ul>
-                    <li><a href="https://github.com/" target="_blank">GitHub</a></li>
-                    <li><a href="https://linkedin.com/" target="_blank">LinkedIn</a></li>
-                </ul>
-            </div>
-        </section>
+        <section id="links" class="links-section" style="display: none;"></section>
     </main>
 
     <script>
