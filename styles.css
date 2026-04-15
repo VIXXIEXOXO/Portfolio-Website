@@ -1,3 +1,31 @@
+/* Style for project website link */
+.project-link a {
+    color: #2c68c4;
+    font-weight: bold;
+    text-decoration: none;
+    transition: text-decoration 0.2s;
+}
+
+.project-link a:hover {
+    text-decoration: underline;
+}
+
+/* Extra bold for project details and website link titles */
+.details-title {
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    font-size: 1.08em;
+}
+
+/* Project subtitle under project title */
+.project-subtitle {
+    color: #808080;
+    font-weight: bold;
+    margin-top: -6px;
+    margin-bottom: -5px;
+    font-size: 1.1rem;
+}
+
 /* Site Icon next to title */
 .header-bar {
     display: flex;
@@ -17,8 +45,8 @@
 }
 
 .site-icon {
-    width: 100px;
-    height: 100px;
+    width: 105px;
+    height: 110px;
     object-fit: contain;
     margin-right: 0;
 }
@@ -31,7 +59,7 @@
     background: #fff;
     border: 2px solid #d3d3d3;
     border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    /* box-shadow removed */
     padding: 18px 18px 18px 18px;
     margin: 0 auto 24px auto;
     max-width: 540px;
@@ -51,20 +79,31 @@
 }
 
 .compact-left .project-title {
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     font-weight: 700;
     margin: 0 0 6px 0;
     color: #191919;
     letter-spacing: 0.01em;
     font-family: inherit;
+    margin-top: 6px;
 }
 
 .compact-left .project-image {
-    width: 240px;
-    height: 200px;
-    background: #ededed;
+    width: 320px;
+    height: 260px;
     border-radius: 10px;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.project-img-scaled {
+    width: 75%;
+    height: 90%;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 76px;
 }
 
 .compact-right {
@@ -75,12 +114,13 @@
     gap: 18px;
     padding-top: 12px;
     min-width: 0;
+    margin-top: 85px;
 }
 
 .compact-right .project-details strong,
 .compact-right .project-link strong {
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 1.1rem;
+    font-weight: bold;
     color: #191919;
     font-family: inherit;
 }
@@ -171,28 +211,14 @@
     flex-direction: row;
     align-items: flex-start;
     background: #fff;
-    border: 2px solid #d3d3d3;
+    border: 8px solid #191919;
     border-radius: 16px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
     padding: 32px 28px;
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 760px;
     width: 100%;
     gap: 32px;
-}
-
-.project-image {
-    width: 240px;
-    height: 140px;
-    background: #ededed;
-    border-radius: 10px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    color: #aaa;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
 }
 
 .project-info {
@@ -281,7 +307,7 @@
     font-size: 3.0rem;
     font-family: 'Segoe UI', 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
     font-weight: 750;
-    margin: -13px 42px 2.5rem 0;
+    margin: -5px 115px 2.5rem 0;
     /* letter-spacing removed */
     text-align: center;
 }
