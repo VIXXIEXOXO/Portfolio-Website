@@ -1,3 +1,39 @@
+/* Project Divider Styles */
+.project-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 40px 0 24px 0;
+    font-family: 'Montserrat', 'Segoe UI', 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: 0.08em;
+    color: #000;
+    text-transform: uppercase;
+}
+
+.project-divider::before,
+.project-divider::after {
+    content: '';
+    flex: 1 1 0%;
+    border-bottom: 4px solid #000;
+    margin: 0 18px;
+    min-width: 32px;
+}
+
+@media (max-width: 600px) {
+    .project-divider {
+        font-size: 1.1rem;
+    }
+
+    .project-divider::before,
+    .project-divider::after {
+        margin: 0 8px;
+        min-width: 12px;
+    }
+}
+
 /* Style for project website link */
 .project-link a {
     color: #2c68c4;
@@ -88,6 +124,12 @@
     margin-top: 6px;
 }
 
+.project-four .project-title {
+    white-space: nowrap;
+    width: max-content;
+    max-width: none;
+}
+
 .compact-left .project-image {
     width: 320px;
     height: 260px;
@@ -112,9 +154,9 @@
     flex-direction: column;
     justify-content: flex-start;
     gap: 18px;
-    padding-top: 12px;
+    padding-top: 8px;
     min-width: 0;
-    margin-top: 65px;
+    margin-top: 0;
 }
 
 .compact-right .project-details strong,
@@ -187,7 +229,6 @@
 
 @media (max-width: 700px) {
     .project-card {
-        flex-direction: column;
         align-items: stretch;
         padding: 18px 8px;
         gap: 18px;
@@ -435,6 +476,21 @@ main {
     width: 43px;
     height: 43px;
     fill: currentColor;
+}
+
+.footer-itchio-link {
+    display: flex;
+    align-items: center;
+    margin-left: 0.5rem;
+    text-decoration: none;
+    line-height: 0;
+    color: #ffffff !important;
+}
+
+.footer-itchio-link img {
+    width: 58px;
+    height: 58px;
+    object-fit: contain;
 }
 
 .nav-btn {
