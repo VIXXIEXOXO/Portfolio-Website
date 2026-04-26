@@ -3,8 +3,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    margin: 15px 0 10px 0;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 15px;
+    margin-bottom: 10px;
     font-family: 'Montserrat', 'Segoe UI', 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
     font-weight: 800;
     font-size: 1.5rem;
@@ -18,17 +22,19 @@
     content: '';
     flex: 1 1 0%;
     border-bottom: 4px solid #000;
-    margin: 0 18px;
-    min-width: 32px;
+    margin: 0;
+    min-width: 0;
 }
 
 /* Edit these separately to style each divider independently */
 .website-divider {
-    margin: 0px 0 10px 0;
+    margin-top: 0px;
+    margin-bottom: 10px;
 }
 
 .games-divider {
-    margin: 15px 0 10px 0;
+    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
 @media (max-width: 600px) {
@@ -148,6 +154,7 @@
     font-family: inherit;
     margin-top: 2px;
     margin-bottom: 7px;
+    white-space: nowrap;
 }
 
 .project-four .project-title {
@@ -473,6 +480,7 @@
 html,
 body {
     height: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -621,6 +629,7 @@ main {
 
 .about-section,
 .projects-section,
+.services-section,
 .links-section {
     display: flex;
     flex-direction: column;
@@ -632,6 +641,30 @@ main {
 .projects-section {
     align-items: stretch;
     width: 100%;
+}
+
+.services-section {
+    justify-content: center;
+    min-height: 40vh;
+}
+
+.services-coming-soon {
+    text-align: center;
+    background: #ffffff;
+    border: 8px solid #191919;
+    border-radius: 12px;
+    padding: 2.2rem 3rem;
+    width: min(900px, 94vw);
+    font-family: 'Segoe UI', 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+.services-coming-soon p {
+    margin: 0;
+    color: #000000;
+    font-size: 1.45rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 @media (max-width: 900px) {
@@ -654,6 +687,7 @@ main {
 
     .about-section,
     .projects-section,
+    .services-section,
     .links-section {
         margin-top: 1.25rem;
     }
