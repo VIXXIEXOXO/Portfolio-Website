@@ -1,3 +1,17 @@
+/* Section display classes to replace inline styles */
+.about-section {
+    display: flex;
+}
+
+.projects-section {
+    display: none;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.services-section {
+    display: none;
+}
 /* Project Divider Styles */
 .project-divider {
     display: flex;
@@ -106,7 +120,7 @@
     font-size: clamp(1.55rem, 5.3vw, 3rem);
     font-weight: bold;
     margin: 0;
-    text-wrap: balance;
+    overflow-wrap: break-word;
 }
 
 .site-icon {
@@ -455,6 +469,8 @@
     color: #fff;
     font-size: 1.1em;
     margin: 0 0.2em;
+    -webkit-user-select: none;
+    -ms-user-select: none;
     user-select: none;
 }
 

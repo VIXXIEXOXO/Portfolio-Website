@@ -22,9 +22,9 @@
     </header>
 
     <main>
-        <section id="about" class="about-section" style="display: flex;"></section>
+        <section id="about" class="about-section"></section>
 
-        <section id="projects" class="projects-section" style="display: none; flex-direction: column; gap: 32px;">
+        <section id="projects" class="projects-section">
             <!-- Divider for Websites -->
             <div class="project-divider website-divider">WEBSITES</div>
             <div class="project-grid">
@@ -55,7 +55,7 @@
                         <div class="project-link">
                             <strong class="details-title">WEBSITE LINK</strong><br>
                             <a href="https://brightform-studios.github.io/Portfolio-Website/"
-                                target="_blank">https://brightform-studios.<br>github.io/Portfolio-Website/</a>
+                                target="_blank" rel="noopener">https://brightform-studios.<br>github.io/Portfolio-Website/</a>
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                         <div class="project-link">
                             <strong class="details-title">WEBSITE LINK</strong><br>
                             <a href="https://brightform-studios.github.io/Glutena/"
-                                target="_blank">https://brightform-studios.<br>github.io/Glutena/</a>
+                                target="_blank" rel="noopener">https://brightform-studios.<br>github.io/Glutena/</a>
                         </div>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                         <div class="project-link">
                             <strong class="details-title">WEBSITE LINK</strong><br>
                             <a href="https://brightform-studios.github.io/CalcuBee/"
-                                target="_blank">https://brightform-studios.<br>github.io/CalcuBee/</a>
+                                target="_blank" rel="noopener">https://brightform-studios.<br>github.io/CalcuBee/</a>
                         </div>
                     </div>
                 </div>
@@ -150,7 +150,7 @@
                         <div class="project-link">
                             <strong class="details-title">WEBSITE LINK</strong><br>
                             <a href="https://digipen-academy-wanic.itch.io/2025-fish-game"
-                                target="_blank">https://digipen-academy-wanic.<br>itch.io/2025-fish-game</a>
+                                target="_blank" rel="noopener">https://digipen-academy-wanic.<br>itch.io/2025-fish-game</a>
                         </div>
                     </div>
                 </div>
@@ -181,7 +181,7 @@
                         <div class="project-link">
                             <strong class="details-title">WEBSITE LINK</strong><br>
                             <a href="https://akgrellmann.itch.io/the-tale-of-twisted-shapes"
-                                target="_blank">https://akgrellmann.<br>itch.io/the-tale-of-twisted-shapes</a>
+                                target="_blank" rel="noopener">https://akgrellmann.<br>itch.io/the-tale-of-twisted-shapes</a>
                         </div>
                     </div>
                 </div>
@@ -203,7 +203,7 @@
             </div>
         </section>
 
-        <section id="services" class="services-section" style="display: none;">
+        <section id="services" class="services-section">
             <div class="services-coming-soon">
                 <p>Coming soon</p>
             </div>
@@ -279,6 +279,10 @@
                 });
             });
 
+            // Show only About section on load
+            aboutSection.style.display = 'flex';
+            projectsSection.style.display = 'none';
+            servicesSection.style.display = 'none';
             setActiveTab(aboutTab);
         });
     </script>
