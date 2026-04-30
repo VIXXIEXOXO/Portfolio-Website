@@ -161,7 +161,7 @@
 }
 
 .compact-left .project-title {
-    font-size: clamp(0.88rem, 1.2vw, 1rem);
+    font-size: clamp(0.88rem, 1.2vw, 1.1rem);
     font-weight: 700;
     margin: 0 0 4px 0;
     color: #191919;
@@ -169,7 +169,7 @@
     font-family: inherit;
     margin-top: 2px;
     margin-bottom: 7px;
-    white-space: normal;
+    white-space: nowrap;
 }
 
 .project-four .project-title {
